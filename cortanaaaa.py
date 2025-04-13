@@ -1161,7 +1161,6 @@ class CortanaAssistantGUI(QMainWindow):
         main_layout.addWidget(input_container)
        
         
-        # Status bar with microphone indicator
         self.statusBar().showMessage("Ready")
         
         # Apply global stylesheet
@@ -1194,10 +1193,10 @@ class CortanaAssistantGUI(QMainWindow):
         
     def welcome_user(self):
         """Welcome the user when the application starts"""
-        # Enable speaking for the initial greeting
+     
         self.backend.should_speak = True
         threading.Thread(target=self.backend.wish_user, daemon=True).start()
-        # Reset after greeting
+
         QTimer.singleShot(5000, lambda: setattr(self.backend, 'should_speak', False))
         
     def add_message_from_thread(self, text, is_user=False, is_status=False):
@@ -1215,7 +1214,7 @@ class CortanaAssistantGUI(QMainWindow):
             self.update_chat(message, is_user=True)
             self.input_field.clear()
             
-            # Process the message in a separate thread
+            
             threading.Thread(target=self.process_message, args=(message,), daemon=True).start()
             
     def process_message(self, message):
@@ -1307,7 +1306,7 @@ class CortanaAssistantGUI(QMainWindow):
                     response = self.backend.process_command(command)
                     self.add_message_from_thread(response)
                     
-                    # Break the loop if the command was to stop listening
+                    # Breaking loop 
                     if "stop listening" in command.lower():
                         self.continuous_listening = False
                         self.continuous_listening_button.setChecked(False)
@@ -1322,7 +1321,7 @@ class CortanaAssistantGUI(QMainWindow):
                         
             except Exception as e:
                 self.add_message_from_thread(f"Error: {str(e)}", is_status=True)
-                time.sleep(1)  # Brief pause before trying again
+                time.sleep(1)  
         
         self.backend.should_speak = False                  
     def handle_quick_action(self, action):
@@ -1333,7 +1332,7 @@ class CortanaAssistantGUI(QMainWindow):
         """Handle window close event"""
         # Stop continuous listening if active
         self.continuous_listening = False
-        # Allow a moment for threads to clean up
+
         time.sleep(0.2)
         event.accept()
 
@@ -1345,15 +1344,15 @@ class SplashScreen(QSplashScreen):
         size = QSize(300, 400)
         radius = 30
 
-        # Rounded black background
+        
         pixmap = rounded_pixmap(size, radius, QColor(0, 0, 0))  
         super().__init__(pixmap)
 
-        # Make window transparent + borderless
+  
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.SplashScreen)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
-        # Add the GIF
+
         self.movie_label = QLabel(self)
         self.movie_label.setGeometry(QRect(0, 0, 300, 400))
         self.movie_label.setStyleSheet("background-color: transparent;")
@@ -1384,5 +1383,5 @@ if __name__ == "__main__":
         splash.finish(main)
         main.show()
 
-    QTimer.singleShot(3000, start_main)  # Show splash for 3 sec
+    QTimer.singleShot(3000, start_main)  
     sys.exit(app.exec_())
