@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../AIFriday/Data"
+		},
+		{
+			"path": "../AIFriday/Database"
+		}
+	],
+	"settings": {}
+}

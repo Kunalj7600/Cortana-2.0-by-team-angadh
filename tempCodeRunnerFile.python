@@ -1,0 +1,13 @@
+import pyautogui
+import time
+a=0
+pyautogui.hotkey('alt','tab')   
+
+while a<40:
+    
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('enter')
+    time.sleep(1)
+    pyautogui.hotkey('esc')
